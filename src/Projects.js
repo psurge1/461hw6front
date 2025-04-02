@@ -9,7 +9,13 @@ const API_BASE_URL = "https://4611hope.vercel.app/api";
 
 export const handleProject = async (projectId, action) => {
     try {
-        const response = await fetch(`${API_BASE_URL}/${action}/${projectId}`);
+        const response = await fetch(
+            `${API_BASE_URL}/${action}/${projectId}`,
+            {
+                headers: {
+                    "Content-Type": "application/json"
+            }}
+        );
         const data = await response.json();
         return data;
     } catch (error) {
@@ -20,7 +26,13 @@ export const handleProject = async (projectId, action) => {
 
 export const handleHardware = async (projectId, qty, action) => {
     try {
-        const response = await fetch(`${API_BASE_URL}/${action}/${projectId}/${qty}`);
+        const response = await fetch(
+            `${API_BASE_URL}/${action}/${projectId}/${qty}`,
+            {
+                headers: {
+                    "Content-Type": "application/json"
+            }}
+        );
         const data = await response.json();
         return data;
     } catch (error) {
