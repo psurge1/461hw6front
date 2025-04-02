@@ -106,7 +106,7 @@ function TextFieldCollection({setOne, setTwo}) {
     return (
         <div style={{display: 'flex', flexDirection: 'column'}}>
             <TextField onChange={(e) => {setOne(e.target.value)}} id="outlined-basic" label="Enter qty" variant="outlined" size="small"/>
-            <TextField onChange={(e) => {setOne(e.target.value)}} id="outlined-basic" label="Enter qty" variant="outlined" size="small"/>
+            <TextField onChange={(e) => {setTwo(e.target.value)}} id="outlined-basic" label="Enter qty" variant="outlined" size="small"/>
         </div>
     )
 }
