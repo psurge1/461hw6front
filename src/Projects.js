@@ -66,8 +66,7 @@ function ButtonCollection({projId}) {
                         onClick={() => {
                             handleHardware(projId, qtyOne, "checkin").then((data) => {
                                 console.log(data);
-                            }).then((response) => {
-                                alert(response.message);
+                                alert(data.message);
                             });
                         }}
                     >Check In</Button>
@@ -75,8 +74,7 @@ function ButtonCollection({projId}) {
                         onClick={() => {
                             handleHardware(projId, qtyOne, "checkin").then((data) => {
                                 console.log(data);
-                            }).then((response) => {
-                                alert(response.message);
+                                alert(data.message);
                             });
                         }}
                     >Check Out</Button>
@@ -86,8 +84,7 @@ function ButtonCollection({projId}) {
                         onClick={() => {
                             handleHardware(projId, qtyTwo, "checkin").then((data) => {
                                 console.log(data);
-                            }).then((response) => {
-                                alert(response.message);
+                                alert(data.message);
                             });
                         }}
                     >Check In</Button>
@@ -95,8 +92,7 @@ function ButtonCollection({projId}) {
                         onClick={() => {
                             handleHardware(projId, qtyTwo, "checkin").then((data) => {
                                 console.log(data);
-                            }).then((response) => {
-                                alert(response.message);
+                                alert(data.message);
                             });
                         }}
                     >Check Out</Button>
@@ -154,8 +150,7 @@ function ProjectRow(
                 onClick={() => {
                     handleProject(title, joined ? "leave" : "join").then((data) => {
                         console.log(data);
-                    }).then((response) => {
-                        alert(response.message);
+                        alert(data.message);
                     });
                     joined = !joined;
                 }}
