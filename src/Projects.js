@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import TextField from '@mui/material/TextField';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 const API_BASE_URL = "https://4611hope.vercel.app/api";
@@ -72,7 +72,7 @@ function ButtonCollection({projId}) {
                     >Check In</Button>
                     <Button
                         onClick={() => {
-                            handleHardware(projId, qtyOne, "checkin").then((data) => {
+                            handleHardware(projId, qtyOne, "checkout").then((data) => {
                                 console.log(data);
                                 alert(data.message);
                             });
@@ -90,7 +90,7 @@ function ButtonCollection({projId}) {
                     >Check In</Button>
                     <Button
                         onClick={() => {
-                            handleHardware(projId, qtyTwo, "checkin").then((data) => {
+                            handleHardware(projId, qtyTwo, "checkout").then((data) => {
                                 console.log(data);
                                 alert(data.message);
                             });
@@ -132,6 +132,12 @@ function HoverableDiv({children}) {
 function ProjectRow(
     {title, setOne, setTwo, capacity, users, joined}
 ) {
+    const [buttonTitle, setButtonTitle] = useState("Join");
+
+    useEffect(() => {
+        setButtonTitle(joined ? "Leave" : "Join");
+    }, [joined])
+
     return (
         <HoverableDiv>
             <h2 style={{margin: '1%'}}>{title}</h2>
@@ -154,7 +160,7 @@ function ProjectRow(
                     });
                     joined = !joined;
                 }}
-            >{(joined ? ("Leave") : ("Join"))}</Button>
+            >{buttonTitle}</Button>
         </HoverableDiv>
     )
 }
