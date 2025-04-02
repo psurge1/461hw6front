@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 
 
-const API_BASE_URL = "https://https://4611hope.vercel.app/api";
+const API_BASE_URL = "https://4611hope.vercel.app/api";
 
 
 export const handleProject = async (projectId, action) => {
@@ -54,6 +54,8 @@ function ButtonCollection({projId}) {
                         onClick={() => {
                             handleHardware(projId, qtyOne, "checkin").then((data) => {
                                 console.log(data);
+                            }).then((response) => {
+                                alert(response.message);
                             });
                         }}
                     >Check In</Button>
@@ -61,6 +63,8 @@ function ButtonCollection({projId}) {
                         onClick={() => {
                             handleHardware(projId, qtyOne, "checkin").then((data) => {
                                 console.log(data);
+                            }).then((response) => {
+                                alert(response.message);
                             });
                         }}
                     >Check Out</Button>
@@ -70,6 +74,8 @@ function ButtonCollection({projId}) {
                         onClick={() => {
                             handleHardware(projId, qtyTwo, "checkin").then((data) => {
                                 console.log(data);
+                            }).then((response) => {
+                                alert(response.message);
                             });
                         }}
                     >Check In</Button>
@@ -77,6 +83,8 @@ function ButtonCollection({projId}) {
                         onClick={() => {
                             handleHardware(projId, qtyTwo, "checkin").then((data) => {
                                 console.log(data);
+                            }).then((response) => {
+                                alert(response.message);
                             });
                         }}
                     >Check Out</Button>
@@ -130,7 +138,16 @@ function ProjectRow(
             </p>
             <HWSet setOne={setOne} setTwo={setTwo} capacity={capacity}></HWSet>
             <ButtonCollection projId={title}></ButtonCollection>
-            <Button>{(joined ? ("Leave") : ("Join"))}</Button>
+            <Button
+                onClick={() => {
+                    handleProject(title, joined ? "leave" : "join").then((data) => {
+                        console.log(data);
+                    }).then((response) => {
+                        alert(response.message);
+                    });
+                    joined = !joined;
+                }}
+            >{(joined ? ("Leave") : ("Join"))}</Button>
         </HoverableDiv>
     )
 }
