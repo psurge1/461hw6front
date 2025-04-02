@@ -3,6 +3,32 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 
+
+const API_BASE_URL = "https://https://4611hope.vercel.app/api";
+
+
+export const handleProject = async (projectId, action) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/${action}/${projectId}`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Error:", error);
+        return { message: "Failed to join/leave!" };
+    }
+};
+
+export const handleHardware = async (projectId, qty, action) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/${action}/${projectId}/${qty}`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Error:", error);
+        return { message: "Failed to check in/check out!" };
+    }
+};
+
 function HWSet({setOne, setTwo, capacity}) {
     return (
         <div style={{marginLeft: '1%', marginRight: '1%'}}>
@@ -12,26 +38,59 @@ function HWSet({setOne, setTwo, capacity}) {
     )
 }
 
-function ButtonCollection() {
+function ButtonCollection({projId}) {
+    const [qtyOne, setQtyOne] = useState(0);
+    const [qtyTwo, setQtyTwo] = useState(0);
+
     return (
-        <div style={{marginLeft: '1%', marginRight: '1%', display: 'flex', flexDirection: 'column'}}>
-            <ButtonGroup variant="text" aria-label="Basic button group">
-                <Button>Check In</Button>
-                <Button>Check Out</Button>
-            </ButtonGroup>
-            <ButtonGroup variant="text" aria-label="Basic button group">
-                <Button>Check In</Button>
-                <Button>Check Out</Button>
-            </ButtonGroup>
-        </div>
+        <>
+            <TextFieldCollection
+                setOne={setQtyOne}
+                setTwo={setQtyTwo}
+            ></TextFieldCollection>
+            <div style={{marginLeft: '1%', marginRight: '1%', display: 'flex', flexDirection: 'column'}}>
+                <ButtonGroup variant="text" aria-label="Basic button group">
+                    <Button
+                        onClick={() => {
+                            handleHardware(projId, qtyOne, "checkin").then((data) => {
+                                console.log(data);
+                            });
+                        }}
+                    >Check In</Button>
+                    <Button
+                        onClick={() => {
+                            handleHardware(projId, qtyOne, "checkin").then((data) => {
+                                console.log(data);
+                            });
+                        }}
+                    >Check Out</Button>
+                </ButtonGroup>
+                <ButtonGroup variant="text" aria-label="Basic button group">
+                    <Button
+                        onClick={() => {
+                            handleHardware(projId, qtyTwo, "checkin").then((data) => {
+                                console.log(data);
+                            });
+                        }}
+                    >Check In</Button>
+                    <Button
+                        onClick={() => {
+                            handleHardware(projId, qtyTwo, "checkin").then((data) => {
+                                console.log(data);
+                            });
+                        }}
+                    >Check Out</Button>
+                </ButtonGroup>
+            </div>
+        </>
     )
 }
 
-function TextFieldCollection() {
+function TextFieldCollection({setOne, setTwo}) {
     return (
         <div style={{display: 'flex', flexDirection: 'column'}}>
-            <TextField id="outlined-basic" label="Enter qty" variant="outlined" size="small"/>
-            <TextField id="outlined-basic" label="Enter qty" variant="outlined" size="small"/>
+            <TextField onChange={(e) => {setOne(e.target.value)}} id="outlined-basic" label="Enter qty" variant="outlined" size="small"/>
+            <TextField onChange={(e) => {setOne(e.target.value)}} id="outlined-basic" label="Enter qty" variant="outlined" size="small"/>
         </div>
     )
 }
@@ -70,8 +129,7 @@ function ProjectRow(
                 )}
             </p>
             <HWSet setOne={setOne} setTwo={setTwo} capacity={capacity}></HWSet>
-            <TextFieldCollection></TextFieldCollection>
-            <ButtonCollection></ButtonCollection>
+            <ButtonCollection projId={title}></ButtonCollection>
             <Button>{(joined ? ("Leave") : ("Join"))}</Button>
         </HoverableDiv>
     )
